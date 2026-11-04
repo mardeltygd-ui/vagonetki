@@ -40,8 +40,8 @@
 ## Сборка
 Нужен JDK 17.
 
-    ./gradlew build        # jar в build/libs/
-    ./gradlew runClient    # тестовый запуск
+    gradle build         # Gradle 8.8+, jar в build/libs/
+    gradle runClient     # тестовый запуск
 
 В `.minecraft/mods` кладут jar вместе с Fabric API 0.92.2+1.20.1.
 
