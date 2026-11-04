@@ -12,6 +12,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
@@ -101,6 +102,11 @@ public abstract class ModCartEntity extends AbstractMinecartEntity {
 			stack.setCustomName(this.getCustomName());
 		}
 		this.dropStack(stack);
+	}
+
+	@Override
+	public Item getItem() {
+		return dev.vagonetki.ModItems.forKind(kind());
 	}
 
 	@Override
@@ -215,7 +221,7 @@ public abstract class ModCartEntity extends AbstractMinecartEntity {
 			return;
 		}
 
-		if (abilities && k.jumps() && has(F_JUMP) && !airborne && (this.isOnGround() || isOnRail())) {
+		if (abilities && k.jumps && has(F_JUMP) && !airborne && (this.isOnGround() || isOnAnyRail())) {
 			Vec3d v = this.getVelocity();
 			this.setVelocity(v.x, 0.48, v.z);
 			this.airborne = true;
@@ -230,7 +236,7 @@ public abstract class ModCartEntity extends AbstractMinecartEntity {
 		}
 	}
 
-	private boolean isOnRail() {
+	private boolean isOnAnyRail() {
 		World w = this.getWorld();
 		int x = MathHelper.floor(this.getX());
 		int y = MathHelper.floor(this.getY());
