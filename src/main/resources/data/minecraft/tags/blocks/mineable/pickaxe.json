@@ -3,6 +3,12 @@
   "values": [
     "vagonetki:plane_rail",
     "vagonetki:boat_rail",
-    "vagonetki:universal_rail"
+    "vagonetki:universal_rail",
+    "vagonetki:helicopter_rail",
+    "vagonetki:submarine_rail",
+    "vagonetki:ice_rail",
+    "vagonetki:lava_rail",
+    "vagonetki:ender_rail",
+    "vagonetki:rocket_rail"
   ]
 }

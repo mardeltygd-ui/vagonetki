@@ -1,6 +1,8 @@
 package dev.vagonetki;
 
+import dev.vagonetki.entity.CartKind;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -16,13 +18,12 @@ public final class ModItemGroup {
 			.icon(() -> new ItemStack(ModItems.PLANE_CART))
 			.displayName(Text.translatable("itemGroup.vagonetki.main"))
 			.entries((context, entries) -> {
-				entries.add(ModItems.PLANE_CART);
-				entries.add(ModItems.BOAT_CART);
-				entries.add(ModItems.SLIME_CART);
-				entries.add(ModItems.UNIVERSAL_CART);
-				entries.add(ModItems.PLANE_RAIL);
-				entries.add(ModItems.BOAT_RAIL);
-				entries.add(ModItems.UNIVERSAL_RAIL);
+				for (CartKind kind : CartKind.values()) {
+					entries.add(ModItems.forKind(kind));
+				}
+				for (Item rail : ModItems.rails()) {
+					entries.add(rail);
+				}
 			})
 			.build()
 	);

@@ -8,30 +8,53 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-public final class ModItems {
-	public static final Item PLANE_RAIL = register("plane_rail", new BlockItem(ModBlocks.PLANE_RAIL, new FabricItemSettings()));
-	public static final Item BOAT_RAIL = register("boat_rail", new BlockItem(ModBlocks.BOAT_RAIL, new FabricItemSettings()));
-	public static final Item UNIVERSAL_RAIL = register("universal_rail", new BlockItem(ModBlocks.UNIVERSAL_RAIL, new FabricItemSettings()));
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
-	public static final Item PLANE_CART = register("plane_cart", new CartItem(CartKind.PLANE, new FabricItemSettings().maxCount(1)));
-	public static final Item BOAT_CART = register("boat_cart", new CartItem(CartKind.BOAT, new FabricItemSettings().maxCount(1)));
-	public static final Item SLIME_CART = register("slime_cart", new CartItem(CartKind.SLIME, new FabricItemSettings().maxCount(1)));
-	public static final Item UNIVERSAL_CART = register("universal_cart", new CartItem(CartKind.UNIVERSAL, new FabricItemSettings().maxCount(1)));
+public final class ModItems {
+	private static final Map<CartKind, Item> CARTS = new EnumMap<>(CartKind.class);
+	private static final List<Item> RAILS = new ArrayList<>();
+
+	public static final Item PLANE_CART = cart(CartKind.PLANE);
+	public static final Item BOAT_CART = cart(CartKind.BOAT);
+	public static final Item SLIME_CART = cart(CartKind.SLIME);
+	public static final Item UNIVERSAL_CART = cart(CartKind.UNIVERSAL);
+	public static final Item HELICOPTER_CART = cart(CartKind.HELICOPTER);
+	public static final Item SUBMARINE_CART = cart(CartKind.SUBMARINE);
+	public static final Item ICE_CART = cart(CartKind.ICE);
+	public static final Item LAVA_CART = cart(CartKind.LAVA);
+	public static final Item ENDER_CART = cart(CartKind.ENDER);
+	public static final Item ROCKET_CART = cart(CartKind.ROCKET);
+
+	static {
+		for (CartKind kind : CartKind.values()) {
+			if (kind != CartKind.SLIME) {
+				RAILS.add(Registry.register(
+					Registries.ITEM,
+					Vagonetki.id(kind.railId()),
+					new BlockItem(ModBlocks.railFor(kind), new FabricItemSettings())
+				));
+			}
+		}
+	}
 
 	private ModItems() {
 	}
 
-	private static Item register(String name, Item item) {
-		return Registry.register(Registries.ITEM, Vagonetki.id(name), item);
+	private static Item cart(CartKind kind) {
+		Item item = Registry.register(Registries.ITEM, Vagonetki.id(kind.cartId()), new CartItem(kind, new FabricItemSettings().maxCount(1)));
+		CARTS.put(kind, item);
+		return item;
 	}
 
 	public static Item forKind(CartKind kind) {
-		return switch (kind) {
-			case PLANE -> PLANE_CART;
-			case BOAT -> BOAT_CART;
-			case SLIME -> SLIME_CART;
-			case UNIVERSAL -> UNIVERSAL_CART;
-		};
+		return CARTS.get(kind);
+	}
+
+	public static List<Item> rails() {
+		return RAILS;
 	}
 
 	public static void register() {

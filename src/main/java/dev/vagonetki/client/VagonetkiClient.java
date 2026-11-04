@@ -21,22 +21,37 @@ import org.lwjgl.glfw.GLFW;
 public class VagonetkiClient implements ClientModInitializer {
 	public static final EntityModelLayer EXTRAS_LAYER = new EntityModelLayer(Vagonetki.id("cart_extras"), "main");
 
-	/** Стрелка вверх: набор высоты у самолёта. Можно переназначить в настройках управления. */
+	/** Стрелка вверх: набор высоты (самолёт, вертолёт, подлодка, ракета). Можно переназначить. */
 	public static KeyBinding upKey;
+	/** R: бочка (самолёт). */
+	public static KeyBinding rollKey;
+	/** G: петля (самолёт). */
+	public static KeyBinding loopKey;
+
+	private static KeyBinding key(String name, int code) {
+		return KeyBindingHelper.registerKeyBinding(new KeyBinding(name, InputUtil.Type.KEYSYM, code, "key.categories.vagonetki"));
+	}
 
 	@Override
 	public void onInitializeClient() {
-		upKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-			"key.vagonetki.up", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UP, "key.categories.vagonetki"));
+		upKey = key("key.vagonetki.up", GLFW.GLFW_KEY_UP);
+		rollKey = key("key.vagonetki.roll", GLFW.GLFW_KEY_R);
+		loopKey = key("key.vagonetki.loop", GLFW.GLFW_KEY_G);
 
 		EntityModelLayerRegistry.registerModelLayer(EXTRAS_LAYER, CartExtrasModel::getTexturedModelData);
 		EntityRendererRegistry.register(ModEntities.PLANE_CART, ctx -> new ModCartRenderer<>(ctx));
 		EntityRendererRegistry.register(ModEntities.BOAT_CART, ctx -> new ModCartRenderer<>(ctx));
 		EntityRendererRegistry.register(ModEntities.SLIME_CART, ctx -> new ModCartRenderer<>(ctx));
 		EntityRendererRegistry.register(ModEntities.UNIVERSAL_CART, ctx -> new ModCartRenderer<>(ctx));
+		EntityRendererRegistry.register(ModEntities.HELICOPTER_CART, ctx -> new ModCartRenderer<>(ctx));
+		EntityRendererRegistry.register(ModEntities.SUBMARINE_CART, ctx -> new ModCartRenderer<>(ctx));
+		EntityRendererRegistry.register(ModEntities.ICE_CART, ctx -> new ModCartRenderer<>(ctx));
+		EntityRendererRegistry.register(ModEntities.LAVA_CART, ctx -> new ModCartRenderer<>(ctx));
+		EntityRendererRegistry.register(ModEntities.ENDER_CART, ctx -> new ModCartRenderer<>(ctx));
+		EntityRendererRegistry.register(ModEntities.ROCKET_CART, ctx -> new ModCartRenderer<>(ctx));
 
 		// Каждый тик, пока игрок сидит в нашей вагонетке, шлём на сервер нажатые клавиши.
-		// W/A/S/D (на русской раскладке Ц/Ф/Ы/В, это те же физические клавиши), пробел и стрелка вверх.
+		// W/A/S/D (на русской раскладке Ц/Ф/Ы/В, это те же физические клавиши), пробел, стрелка вверх, R и G.
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (client.player == null || !(client.player.getVehicle() instanceof ModCartEntity)) {
 				return;
@@ -49,6 +64,8 @@ public class VagonetkiClient implements ClientModInitializer {
 			if (o.rightKey.isPressed()) bits |= ModCartEntity.F_RIGHT;
 			if (upKey.isPressed()) bits |= ModCartEntity.F_UP;
 			if (o.jumpKey.isPressed()) bits |= ModCartEntity.F_JUMP;
+			if (rollKey.isPressed()) bits |= ModCartEntity.F_ROLL;
+			if (loopKey.isPressed()) bits |= ModCartEntity.F_LOOP;
 			PacketByteBuf buf = PacketByteBufs.create();
 			buf.writeByte(bits);
 			ClientPlayNetworking.send(Net.CONTROLS, buf);
