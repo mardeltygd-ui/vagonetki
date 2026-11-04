@@ -1,0 +1,43 @@
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.8
+
+      - name: Build
+        run: |
+          set -o pipefail
+          gradle build --no-daemon 2>&1 | tee build.log
+
+      - name: Publish build log to ci-log branch
+        if: always()
+        run: |
+          mkdir /tmp/lb && cp build.log /tmp/lb/ && cd /tmp/lb
+          git init -q && git checkout -q -b ci-log && git add . 
+          git -c user.name=ci -c user.email=ci@example.com commit -qm "build log"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" ci-log
+
+      - name: Upload jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: vagonetki-jar
+          path: build/libs/*.jar

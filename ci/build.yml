@@ -1,0 +1,32 @@
+# Перенеси этот файл в .github/workflows/build.yml (через веб-интерфейс GitHub: Add file, Create new file).
+# Пуш файлов в .github/workflows с токена, которым пользуется Claude, отклоняется.
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.8
+
+      - name: Build
+        run: gradle build --no-daemon
+
+      - name: Upload jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: vagonetki-jar
+          path: build/libs/*.jar

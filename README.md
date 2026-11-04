@@ -46,3 +46,6 @@
 В `.minecraft/mods` кладут jar вместе с Fabric API 0.92.2+1.20.1.
 
 Текстуры и JSON-ресурсы генерирует `python3 tools/gen_assets.py` (нужен Pillow).
+
+## CI
+Готовый workflow лежит в `ci/build.yml`. Чтобы GitHub собирал jar при каждом пуше, перенеси его в `.github/workflows/build.yml`.
