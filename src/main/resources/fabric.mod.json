@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "vagonetki",
+  "version": "${version}",
+  "name": "Вагонетки (Vagonetki)",
+  "description": "Вагонетки-самолёт, вагонетка-лодка, слизь-вагонетка и универсальная вагонетка со своими цветными рельсами. Есть встроенный ресурспак Classic.",
+  "authors": ["mardeltygd-ui"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.vagonetki.Vagonetki"],
+    "client": ["dev.vagonetki.client.VagonetkiClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}
