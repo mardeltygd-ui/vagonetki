@@ -1,0 +1,4 @@
+accessWidener v1 named
+
+# AbstractMinecartEntity.getItem() доступен только внутри пакета, а нашим вагонеткам нужно его реализовать
+accessible method net/minecraft/entity/vehicle/AbstractMinecartEntity getItem ()Lnet/minecraft/item/Item;

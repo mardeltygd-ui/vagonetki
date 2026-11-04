@@ -7,6 +7,7 @@
   "authors": ["mardeltygd-ui"],
   "license": "MIT",
   "environment": "*",
+  "accessWidener": "vagonetki.accesswidener",
   "entrypoints": {
     "main": ["dev.vagonetki.Vagonetki"],
     "client": ["dev.vagonetki.client.VagonetkiClient"]
