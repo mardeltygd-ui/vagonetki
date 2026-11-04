@@ -1,0 +1,17 @@
+{
+  "itemGroup.vagonetki.main": "Вагонетки",
+  "block.vagonetki.plane_rail": "Чёрный рельс (самолёт)",
+  "block.vagonetki.boat_rail": "Зелёный рельс (лодка)",
+  "block.vagonetki.universal_rail": "Синий рельс (универсальный)",
+  "item.vagonetki.plane_cart": "Вагонетка-самолёт",
+  "item.vagonetki.boat_cart": "Вагонетка-лодка",
+  "item.vagonetki.slime_cart": "Слизь-вагонетка",
+  "item.vagonetki.universal_cart": "Универсальная вагонетка",
+  "entity.vagonetki.plane_cart": "Вагонетка-самолёт",
+  "entity.vagonetki.boat_cart": "Вагонетка-лодка",
+  "entity.vagonetki.slime_cart": "Слизь-вагонетка",
+  "entity.vagonetki.universal_cart": "Универсальная вагонетка",
+  "key.vagonetki.up": "Самолёт: набор высоты",
+  "key.categories.vagonetki": "Вагонетки",
+  "message.vagonetki.wrong_rail": "Эту вагонетку можно ставить только на рельсы своего цвета"
+}

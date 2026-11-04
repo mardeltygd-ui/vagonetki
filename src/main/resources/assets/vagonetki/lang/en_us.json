@@ -1,0 +1,17 @@
+{
+  "itemGroup.vagonetki.main": "Minecarts",
+  "block.vagonetki.plane_rail": "Black Rail (Plane)",
+  "block.vagonetki.boat_rail": "Green Rail (Boat)",
+  "block.vagonetki.universal_rail": "Blue Rail (Universal)",
+  "item.vagonetki.plane_cart": "Plane Minecart",
+  "item.vagonetki.boat_cart": "Boat Minecart",
+  "item.vagonetki.slime_cart": "Slime Minecart",
+  "item.vagonetki.universal_cart": "Universal Minecart",
+  "entity.vagonetki.plane_cart": "Plane Minecart",
+  "entity.vagonetki.boat_cart": "Boat Minecart",
+  "entity.vagonetki.slime_cart": "Slime Minecart",
+  "entity.vagonetki.universal_cart": "Universal Minecart",
+  "key.vagonetki.up": "Plane: climb",
+  "key.categories.vagonetki": "Minecarts",
+  "message.vagonetki.wrong_rail": "This minecart can only be placed on rails of its own colour"
+}

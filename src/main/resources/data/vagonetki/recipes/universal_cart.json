@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "vagonetki:plane_cart"
+    },
+    {
+      "item": "vagonetki:boat_cart"
+    },
+    {
+      "item": "vagonetki:slime_cart"
+    }
+  ],
+  "result": {
+    "item": "vagonetki:universal_cart",
+    "count": 1
+  }
+}
